@@ -5,3 +5,5 @@
 * Using Git Flow model https://github.com/nvie/gitflow
 
 * Rails 4 / Ruby 2. All the new and shiny things!
+
+* Will be skipping test folder as using RSpec etc.
