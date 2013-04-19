@@ -42,3 +42,4 @@ end
 gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.0.0'
 gem 'jbuilder', '1.0.1'
+gem 'bcrypt-ruby', '3.0.1'
