@@ -2,7 +2,8 @@
 # More info at https://github.com/guard/guard#readme
 require 'active_support/core_ext'
 
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, 
+guard 'spork', cli: 'cucumber --bootstrap',
+               :cucumber_env => { 'RAILS_ENV' => 'test' }, 
                :rspec_env    => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   watch('config/environment.rb')
@@ -51,4 +52,10 @@ guard 'rspec', all_after_pass: false,  cli: '--drb' do
   watch(%r{^app/controllers/sessions_controller\.rb$}) do |m|                                                                                                  
     "spec/requests/authentication_pages_spec.rb"                                                                                                               
   end
+end
+
+guard 'cucumber', cli: '--no-profile --color --format progress --strict' do
+  watch(%r{^features/.+\.feature$})
+  watch(%r{^features/support/.+$})                      { 'features' }
+  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
