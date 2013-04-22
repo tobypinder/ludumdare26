@@ -27,15 +27,10 @@ group :test do
   gem 'selenium-webdriver', '2.0'
   gem 'capybara', '2.1.0.beta1'
   gem 'factory_girl_rails', '4.2.0'
-  # Uncomment these lines on OS X.
-  
 
-  # Uncomment these lines on Linux.
+  gem 'cucumber-rails', '1.3.0', require: false
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
-
-  # Uncomment these lines on Windows.
-  
-  
   case RUBY_PLATFORM
     when /mswin|windows/i
       gem 'rb-fchange', '0.0.6'
