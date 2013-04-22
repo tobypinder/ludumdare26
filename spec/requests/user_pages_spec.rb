@@ -26,7 +26,7 @@ describe "User pages" do
 
     let(:submit) { "Create my account" }
 
-    describe "with invalid information" do
+    describe "with missing information" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
       end
@@ -43,6 +43,44 @@ describe "User pages" do
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
+
+      describe "after saving the user" do
+        before { click_button submit }
+        let(:user) { User.find_by(email: 'user@example.com') }
+
+        it { should have_title(user.name) }
+        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+      end
+
     end
+
+    describe "with invalid information" do
+      before do
+        fill_in "Name",         with: "Wrong"
+        fill_in "Email",        with: ""
+        fill_in "Password",     with: "wrong"
+        fill_in "Confirmation", with: "right"
+      end
+
+      it "about password being too short" do
+        expect { should have_content("Password is too short") }
+      end
+      it "about passwords not matching" do
+        expect { should have_content("Password confirmation doesn't match Password") }
+      end
+      it "about email being blank" do
+        expect { should have_content("Email can't be blank") }
+      end
+      it "about email being generally invalid" do
+        expect { should have_content("Email is invalid") }
+      end
+      it "should not create a user" do
+        expect { click_button submit }.not_to change(User, :count)
+      end
+    end
+
+
+
+
   end
 end
