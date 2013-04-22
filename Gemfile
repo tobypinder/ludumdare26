@@ -12,6 +12,8 @@ group :development, :test do
   gem 'spork-rails', github: 'railstutorial/spork-rails'
   gem 'guard-spork', '1.5.0'
   gem 'guard-cucumber'
+  gem 'guard-bundler'
+  gem 'guard-rails'
   gem 'better_errors'
 end
 
