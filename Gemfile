@@ -42,7 +42,9 @@ group :test do
   gem 'capybara', '2.1.0.beta1'
   gem 'factory_girl_rails', '4.2.0'
 
-  
+  gem 'fuubar'
+
+
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   case RUBY_PLATFORM

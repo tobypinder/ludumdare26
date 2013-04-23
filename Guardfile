@@ -30,7 +30,7 @@ end
 
 
 
-guard 'rspec', cli: '-f documentation --drb' do
+guard 'rspec', cli: '-f Fuubar --drb' do
    watch(%r{^spec/factories\.rb$})
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
