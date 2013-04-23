@@ -9,11 +9,12 @@ group :development, :test do
   gem 'rspec-rails', '2.13.0'
   gem 'guard-rspec', '2.5.0'
 
-  gem 'spork-rails', github: 'railstutorial/spork-rails'
-  gem 'guard-spork', '1.5.0'
-  gem 'guard-cucumber'
-  gem 'guard-bundler'
-  gem 'guard-rails'
+  gem 'spork-rails',    github: 'railstutorial/spork-rails'
+  gem 'guard-spork',    github: 'guard/guard-spork'
+  gem 'guard-cucumber', github: 'guard/guard-cucumber'
+  gem 'guard-bundler',  github: 'guard/guard-bundler'
+  gem 'guard-rails',    github: 'guard/guard-rails'
+  gem 'cucumber-rails', github: 'cucumber/cucumber-rails', branch:'master_rails4_test', require: false
   gem 'better_errors'
 end
 
@@ -30,7 +31,7 @@ group :test do
   gem 'capybara', '2.1.0.beta1'
   gem 'factory_girl_rails', '4.2.0'
 
-  gem 'cucumber-rails', '1.3.0', require: false
+  
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   case RUBY_PLATFORM

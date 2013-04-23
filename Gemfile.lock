@@ -5,6 +5,49 @@ GIT
     database_cleaner (0.9.1)
 
 GIT
+  remote: git://github.com/cucumber/cucumber-rails.git
+  revision: d5bded34c28b8c5d3541aee7cb047da7870209a1
+  branch: master_rails4_test
+  specs:
+    cucumber-rails (1.3.1)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.2.0)
+      nokogiri (>= 1.5.0)
+      rails (>= 3.0.0)
+
+GIT
+  remote: git://github.com/guard/guard-bundler.git
+  revision: c0dbee36594d403335eaae2156c39457df32cffb
+  specs:
+    guard-bundler (1.0.0)
+      bundler (~> 1.0)
+      guard (~> 1.1)
+
+GIT
+  remote: git://github.com/guard/guard-cucumber.git
+  revision: 87869f21e04d5400737252634d274b1802a7a06b
+  specs:
+    guard-cucumber (1.4.0)
+      cucumber (>= 1.2.0)
+      guard (>= 1.1.0)
+
+GIT
+  remote: git://github.com/guard/guard-rails.git
+  revision: 968fd297a948a7c56c2e78ea28f0b43a162a06cc
+  specs:
+    guard-rails (0.4.2)
+      guard (>= 0.2.2)
+
+GIT
+  remote: git://github.com/guard/guard-spork.git
+  revision: 76155fb58f1c92536d1c8f91566983b7c373a52a
+  specs:
+    guard-spork (1.5.0)
+      childprocess (>= 0.2.3)
+      guard (>= 1.1)
+      spork (>= 0.8.4)
+
+GIT
   remote: git://github.com/railstutorial/spork-rails.git
   revision: 5db525af2f917047057f546bc1ac2574d1c6b11e
   specs:
@@ -68,10 +111,6 @@ GEM
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.12.0)
       multi_json (~> 1.3)
-    cucumber-rails (1.3.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.1.8)
-      nokogiri (>= 1.5.0)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -81,7 +120,7 @@ GEM
     factory_girl_rails (4.2.0)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    ffi (1.7.0)
+    ffi (1.8.1)
     formatador (0.2.4)
     gherkin (2.12.0)
       multi_json (~> 1.3)
@@ -91,21 +130,9 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-bundler (1.0.0)
-      bundler (~> 1.0)
-      guard (~> 1.1)
-    guard-cucumber (1.4.0)
-      cucumber (>= 1.2.0)
-      guard (>= 1.1.0)
-    guard-rails (0.4.2)
-      guard (>= 0.2.2)
     guard-rspec (2.5.0)
       guard (>= 1.1)
       rspec (~> 2.11)
-    guard-spork (1.5.0)
-      childprocess (>= 0.2.3)
-      guard (>= 1.1)
-      spork (>= 0.8.4)
     hike (1.2.2)
     i18n (0.6.4)
     jbuilder (1.0.1)
@@ -179,7 +206,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     rubyzip (0.9.9)
-    sass (3.2.7)
+    sass (3.2.8)
     sass-rails (4.0.0.beta1)
       railties (>= 4.0.0.beta, < 5.0)
       sass (>= 3.1.10)
@@ -230,14 +257,14 @@ DEPENDENCIES
   bootstrap-sass (= 2.3.0.1)
   capybara (= 2.1.0.beta1)
   coffee-rails (= 4.0.0.beta1)
-  cucumber-rails (= 1.3.0)
+  cucumber-rails!
   database_cleaner!
   factory_girl_rails (= 4.2.0)
-  guard-bundler
-  guard-cucumber
-  guard-rails
+  guard-bundler!
+  guard-cucumber!
+  guard-rails!
   guard-rspec (= 2.5.0)
-  guard-spork (= 1.5.0)
+  guard-spork!
   jbuilder (= 1.0.1)
   jquery-rails (= 2.2.1)
   libnotify (= 0.8.0)
