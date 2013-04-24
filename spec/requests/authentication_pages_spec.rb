@@ -20,7 +20,7 @@ describe "Authentication" do
     end
 
 
-describe "with valid information" do
+  describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
 
@@ -34,6 +34,13 @@ describe "with valid information" do
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
+
+      it { should_not have_link('Users',       href: users_path) }
+      it { should_not have_link('Profile',     href: user_path(user)) }
+      it { should_not have_link('Settings',    href: edit_user_path(user)) }
+      it { should_not have_link('Sign out',    href: signout_path) }
+      it { should have_link('Sign in', href: signin_path) }
+
       end
     end
   end
@@ -96,6 +103,17 @@ describe "with valid information" do
       end
     end
 
+    describe "as non-admin user" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:non_admin) { FactoryGirl.create(:user) }
+
+      before { sign_in non_admin }
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before { delete user_path(user) }
+        specify { expect(response).to redirect_to(root_path) }        
+      end
+    end
   end
 end
  
