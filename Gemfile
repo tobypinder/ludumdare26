@@ -4,15 +4,29 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.beta1'
 gem 'sqlite3', '1.3.7'
+gem 'faker', '1.1.2'
+gem 'jquery-rails', '2.2.1'
+gem 'turbolinks', '1.0.0'
+gem 'jbuilder', '1.0.1'
+gem 'bcrypt-ruby', '3.0.1'
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
+
 
 group :development, :test do
   gem 'rspec-rails', '2.13.0'
   gem 'guard-rspec', '2.5.0'
+  gem 'rack-livereload'
 
-  gem 'spork-rails', github: 'railstutorial/spork-rails'
-  gem 'guard-spork', '1.5.0'
-
+  gem 'spork-rails',      github: 'railstutorial/spork-rails'
+  gem 'guard-spork',      github: 'guard/guard-spork'
+  gem 'guard-cucumber',   github: 'guard/guard-cucumber'
+  gem 'guard-bundler',    github: 'guard/guard-bundler'
+  gem 'guard-rails',      github: 'ranmocy/guard-rails'
+  gem 'guard-livereload', github: 'guard/guard-livereload'
+  gem 'cucumber-rails',   github: 'cucumber/cucumber-rails', branch:'master_rails4_test', require: false
   gem 'better_errors'
+  gem 'meta_request',     github: 'dejan/rails_panel' #https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg 
 end
 
 group :assets do
@@ -28,7 +42,9 @@ group :test do
   gem 'capybara', '2.1.0.beta1'
   gem 'factory_girl_rails', '4.2.0'
 
-  gem 'cucumber-rails', '1.3.0', require: false
+  gem 'fuubar'
+
+
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   case RUBY_PLATFORM
@@ -50,7 +66,3 @@ group :test do
   end
 end   
 
-gem 'jquery-rails', '2.2.1'
-gem 'turbolinks', '1.0.0'
-gem 'jbuilder', '1.0.1'
-gem 'bcrypt-ruby', '3.0.1'

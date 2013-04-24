@@ -1,4 +1,9 @@
 FirstApp::Application.configure do
+
+  config.middleware.insert_before(
+    Rack::Lock, Rack::LiveReload,
+    :min_delay => 500,
+  )
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -24,4 +29,5 @@ FirstApp::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+  config.log_level = :warn
 end
