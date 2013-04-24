@@ -12,9 +12,14 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password_confirmation, presence: true
   validates :password, length: { minimum: 6 }
-  private
 
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
-    end
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.where("user_id = ?", id)
+  end
+
+private
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 end
