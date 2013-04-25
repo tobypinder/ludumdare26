@@ -26,6 +26,7 @@ group :development, :test do
   gem 'guard-livereload', github: 'guard/guard-livereload'
   gem 'cucumber-rails',   github: 'cucumber/cucumber-rails', branch:'master_rails4_test', require: false
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'meta_request',     github: 'dejan/rails_panel' #https://chrome.google.com/webstore/detail/railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg 
 end
 
