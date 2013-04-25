@@ -1,7 +1,5 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
-notification :libnotify, :timeout => 5, :transient => true, :append => false, :urgency => :critical
-notification :file, path: '.guard_result'
 
 guard 'bundler' do
   watch('Gemfile')
