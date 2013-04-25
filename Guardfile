@@ -7,6 +7,19 @@ guard 'bundler' do
   # watch(/^.+\.gemspec/)
 end
 
+guard 'livereload' do
+  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/helpers/.+\.rb})
+  watch(%r{app/controllers/.+\.rb})
+  watch(%r{public/.+\.(css|js|html)})
+  watch(%r{config/locales/.+\.yml})
+  # Rails Assets Pipeline
+  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+end
+
+
+
+
 guard 'rails' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
@@ -30,12 +43,12 @@ end
 
 guard 'cucumber', cli: '--profile guard --color --drb' do
   watch(%r{^features/.+\.feature$})
-  watch(%r{^features/support/.+$})          { 'features' }
+  watch(%r{^features/support/.+$})                      { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
 
 guard 'rspec', cli: '-f Fuubar --drb' do
-   watch(%r{^spec/factories\.rb$})
+  watch(%r{^spec/factories\.rb$})
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -56,11 +69,3 @@ guard 'rspec', cli: '-f Fuubar --drb' do
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 end
 
-guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{public/.+\.(css|js|html)})
-  watch(%r{config/locales/.+\.yml})
-  # Rails Assets Pipeline
-  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
-end
