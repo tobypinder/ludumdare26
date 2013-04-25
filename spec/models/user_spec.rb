@@ -18,7 +18,9 @@ describe User do
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:remember_token) }
-  it { should respond_to(:followed_users) }  
+  it { should respond_to(:followed_users) }
+  it { should respond_to(:reverse_relationships) }  
+  it { should respond_to(:followers) }
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
   it { should respond_to(:unfollow!) }
@@ -170,12 +172,24 @@ describe User do
       let(:unfollowed_post) do
         FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
       end
+      let(:followed_user) { FactoryGirl.create(:user) }
+
+      before do
+        @user.follow!(followed_user)
+        3.times { followed_user.microposts.create!(content: "Lorem ipsum") }
+      end
 
       its(:feed) { should include(newer_micropost) }
       its(:feed) { should include(older_micropost) }
       its(:feed) { should_not include(unfollowed_post) }
+      its(:feed) do
+        followed_user.microposts.each do |micropost|
+          should include(micropost)
+        end
+      end
     end
   end
+
 
 
   describe "following" do
@@ -187,6 +201,11 @@ describe User do
 
     it { should be_following(other_user) }
     its(:followed_users) { should include(other_user) }
+    
+    describe "followed user" do
+      subject { other_user }
+      its(:followers) { should include(@user) }
+    end
 
     describe "and unfollowing" do
       before { @user.unfollow!(other_user) }
