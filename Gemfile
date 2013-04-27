@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.beta1'
-gem 'sqlite3', '1.3.7'
+
 gem 'faker', '1.1.2'
 gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.0.0'
@@ -15,7 +15,12 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'devise',                    github: 'plataformatec/devise', branch: 'rails4'
 gem 'simple_form'
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
+  gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.0'
   gem 'guard-rspec', '2.5.0'
   gem 'rack-livereload'

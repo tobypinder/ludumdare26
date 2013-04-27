@@ -1,6 +1,7 @@
 FirstApp::Application.routes.draw do
   
   devise_for :users
+  resources :game, only: [:index]
 #  resources :users do
 #    member do
 #      get :following, :followers
