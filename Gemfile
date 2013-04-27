@@ -12,6 +12,8 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
+gem 'devise',                    github: 'plataformatec/devise', branch: 'rails4'
+gem 'simple_form'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.0'
@@ -42,10 +44,7 @@ group :test do
   gem 'selenium-webdriver', '2.0'
   gem 'capybara', '2.1.0.beta1'
   gem 'factory_girl_rails', '4.2.0'
-
   gem 'fuubar'
-
-
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   case RUBY_PLATFORM
