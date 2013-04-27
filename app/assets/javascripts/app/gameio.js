@@ -16,7 +16,9 @@ var GameIO = {
     settings.context  = document.body;
     settings.data     = data;
     settings.dataType = 'json';
-    settings.fail     = function(){
+    settings.error    = function(){
+                          //Seamless graceful failure (NOT)
+                          State.uiState = State.UISTATE_ERROR;
                           console.log("Something Went Wrong with AJAX to "+target+" with data "+data)
                         }
     settings.type     = 'GET'                    

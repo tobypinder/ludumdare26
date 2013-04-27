@@ -8,6 +8,7 @@ Styles.Colors = {
   white: '#ffffff',
   gridLines: '#003300',
   characterTile: '#333300',
+  walkableTile: '#111100',
   selected: '#003300', //'rgba(0,20,0,0.2)'
   blinkRed:function(){
     var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE
