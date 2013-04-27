@@ -5,7 +5,6 @@ var GameLoop={
   tick:function(){
     GameCanvas.render();
     State.timeLastFrame = new Date().getTime(); //include ms
-   
   }
 
 }

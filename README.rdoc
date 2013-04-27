@@ -1,9 +1,12 @@
-== README
+== PLAN 
 
-* Sample App from http://ruby.railstutorial.org/chapters/beginning?version=4.0#top 
+* Assign locations to squares
+* Implement cron (poor mans? Heroku powered? For turns with an ActionQueue) to seed the world, drop items and enemies, and process player event queue. 
+  * Add drops at a rate based on the number of events you just processed (ie ACTIVE PLAYERS)
+* Add the stats to the user
+* Add the items
+* Add on UI.
+* Add consumption of items!
 
-* Using Git Flow model https://github.com/nvie/gitflow
-
-* Rails 4 / Ruby 2. All the new and shiny things!
-
-* Will be skipping test folder as using RSpec etc.
+== TODO
+* Map size as constants

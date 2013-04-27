@@ -1,4 +1,4 @@
-function Tile(x,y,ui_x,ui_y,ui_w,ui_h)
+function Tile(ui_x,ui_y,ui_w,ui_h)
 {
 
   this.ui_x=ui_x;
@@ -41,13 +41,12 @@ var Tiles={
   init:function()
   {
     var ts=Config.TILE_SIZE;
-    for(var i=-5;i<=5;i++)
+    for(var i=-Config.GRID_RADIUS;i<=Config.GRID_RADIUS;i++)
     {
-      for(var j=-5;j<=5;j++)
+      //render tile coords!
+      for(var j=-Config.GRID_RADIUS;j<=Config.GRID_RADIUS;j++)
       {
         var tile= new Tile(
-          null,
-          null,
           -(ts/2)+ts*i, 
           -(ts/2)+ts*j, 
           ts, 

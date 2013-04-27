@@ -11,7 +11,8 @@ Styles.Colors = {
 }
 
 Styles.Fonts = {
-  normal:"bold 18px Electrolizeregular"
+  normal:     "bold 18px Electrolizeregular",
+  gridLabel:  "bold 11px Electrolizeregular"
 }
 
 Styles.LineWidth={

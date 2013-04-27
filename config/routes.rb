@@ -1,7 +1,9 @@
 FirstApp::Application.routes.draw do
   
   devise_for :users
-  resources :game, only: [:index]
+  resources :game,      only: [:index]
+  #resource  :position,  only: [:show], as: :current_position
+  get '/api/current_position', to: 'position#show', as: :current_position
 #  resources :users do
 #    member do
 #      get :following, :followers
