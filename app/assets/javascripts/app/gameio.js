@@ -1,5 +1,13 @@
 var GameIO = {
   flagPositionRX:false,
+  flagWorldRX:false,
+  isReady:function()
+  {
+    return (
+        this.flagPositionRX &&
+        this.flagWorldRX
+    );
+  },
 
   load: function(target, data, callback) 
   {
@@ -16,22 +24,24 @@ var GameIO = {
   },
   getInitialData: function()
   {
-
     //WE NEED TO "BLOCK" ON THE RESULTS OF THESE AS WITHOUT THE INITIAL STATE, THE 
     //GAME CAN DO NOTHING!
     this.load('/api/current_position',null, this.processPosition);
+    
 
-
-  },
-  isReady:function()
-  {
-    return this.flagPositionRX; //&& other flags
   },
   processPosition:function(evt)
   {
     console.log(evt);
     Player.position = evt.position
-    GameIO.flagPositionRX=true;
-  }
+    GameIO.flagWorldRX = true;
+    GameIO.load('/api/world',{x:Player.position.x,y:Player.position.y} , GameIO.processWorld);
+  },
+  processWorld:function(evt)
+  {
+    console.log(evt);
+    World.data = evt.world
+    GameIO.flagPositionRX = true;
 
+  }
 }

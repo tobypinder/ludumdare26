@@ -21,12 +21,32 @@ var GameCanvas={
   },
   render:function()
   {
+    ctx=this.ctx;
     this.reset(this.ctx);
-    this.toGameCoords(this.ctx);
-      this.drawGrid(this.ctx);
-      this.drawGridLabels(this.ctx)
-    this.toUICoords(this.ctx);
-      this.drawDebugPanel(this.ctx);
+    ctx.font = Styles.Fonts.hugeBanner; 
+    switch(State.uiState)
+    {
+      case State.UISTATE_LOADING:
+        ctx.textAlign = 'center';
+        ctx.fillStyle = Styles.Colors.blinkGreen(); 
+        ctx.fillText("LOADING",Config.WIDTH/2,Config.HEIGHT/2);
+      break;
+      case State.UISTATE_ERROR:
+        ctx.textAlign = 'center';
+        ctx.fillStyle = Styles.Colors.blinkRed(); 
+        ctx.fillText("ERROR",Config.WIDTH/2,Config.HEIGHT/2);
+      break;
+      case State.UISTATE_INGAME:
+        ctx.textAlign = 'left';
+        this.toGameCoords(this.ctx);
+          this.drawGrid(this.ctx);
+          this.drawGridLabels(this.ctx)
+        this.toUICoords(this.ctx);
+          Panel.render(this.ctx);
+          this.drawDebugPanel(this.ctx);
+      break;
+    }
+    
     
   },
   //Put nothing from gamecontext into the reset, it's called before AJAX
@@ -39,7 +59,7 @@ var GameCanvas={
     ctx.fillStyle = Styles.Colors.white;
 
     var now = new Date().getTime();
-    var ms=Math.round(1000/(now-State.timeLastFrame));
+    var ms = Math.round(1000/(now-State.timeLastFrame));
     if(Config.DEBUG_INFO) {
       ctx.fillText("FPS: "+ms, Config.WIDTH-80, Config.HEIGHT-10);
     }

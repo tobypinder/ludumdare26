@@ -5,19 +5,22 @@ var Game = {
     GameCanvas.init();
     GameObjects.init();
     GameIO.getInitialData();
-    Game.startLoop();
+    GameLoop.init();
+    Game.isStateReady();
   },
-  startLoop:function()
+  isStateReady:function()
   {
-    if(GameIO.isReady()) {
-      GameLoop.init();
-    } else 
+    if(GameIO.isReady()) 
     {
+      State.uiState = State.INGAME 
+    } else {
       console.log("Not ready... "+State.initIOWait);
       State.initIOWait += Config.INIT_WAIT_TICKMS;
       if(State.initIOWait < Config.INIT_WAIT_TIMEOUT)
       {
-        setTimeout(function(){Game.startLoop()},Config.INIT_RETRY_MS);
+        setTimeout(function(){Game.isStateReady()},Config.INIT_WAIT_TICKMS);
+      } else {
+        State.uiState = State.UISTATE_ERROR 
       }
     }
 
