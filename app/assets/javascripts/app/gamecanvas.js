@@ -1,8 +1,8 @@
 var GameCanvas={
   obj:null,
   ctx:null,
-  pageOffsetLeft:null, //for clickhandling
-  pageOffsetTop:null, //for clickhandling
+  pageOffsetLeft:function(){return this.obj.offsetLeft}, //for clickhandling
+  pageOffsetTop:function(){return this.obj.offsetTop}, //for clickhandling
   init:function()
   {
     this.obj = $('#thegame')[0]
@@ -10,8 +10,6 @@ var GameCanvas={
     this.obj.height = Config.HEIGHT;
 
     //get offsets for proper click handling.
-    this.pageOffsetLeft = this.obj.offsetLeft;
-    this.pageOffsetTop  = this.obj.offsetTop;
     this.obj.addEventListener('click',
       function(event){ClickHandler.process(event)})
 

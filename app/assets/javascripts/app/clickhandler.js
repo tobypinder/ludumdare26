@@ -9,8 +9,29 @@ var ClickHandler={
   objs:[],
   process:function(event){
     //loops thru clickable objs :)
-    var x = event.pageX - GameCanvas.pageOffsetLeft;
-    var y = event.pageY - GameCanvas.pageOffsetTop;
+    
+    //http://diveintohtml5.info/canvas.html
+    //var x = event.pageX - GameCanvas.pageOffsetLeft;
+    //var y = event.pageY - GameCanvas.pageOffsetTop;
+    var x;
+    var y;
+    if (event.pageX != undefined && event.pageY != undefined) 
+    {
+      x = event.pageX;
+      y = event.pageY;
+    }
+    else 
+    {
+      x = event.clientX + document.body.scrollLeft +
+        document.documentElement.scrollLeft;
+      y = event.clientY + document.body.scrollTop +
+        document.documentElement.scrollTop;
+    }
+    x = x - GameCanvas.pageOffsetLeft();
+    y = y - GameCanvas.pageOffsetTop();
+
+
+
     var c = ClickHandler.translate(x,y); //clicked point
     console.log("You clicked canvas coord ["+x+","+y+"] (["+c.x+","+c.y+"])")
     for(idx in ClickHandler.objs)
@@ -44,3 +65,9 @@ var ClickHandler={
     }
   }
 }
+
+//Need to recompute stuff because this breaks as stuff gets resized it seems.
+
+$(window).resize(function() {
+  //resize just happened, pixels changed
+});
