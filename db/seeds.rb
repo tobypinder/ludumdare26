@@ -15,8 +15,11 @@ Position.transaction do
 
       spawnX = ((x < 12) && (x > -12))
       spawnY = ((y < 12) && (y > -12))
+
+      radialDistance = Math.hypot(x,y)
+
       #12
-      if((rng.rand(1..12) == 1) && !(spawnX && spawnY))
+      if(((rng.rand(1..12) == 1) && !(spawnX && spawnY)) || radialDistance > 30)
         print 'X'
       else
         Position.find_or_create_by_x_and_y(x,y)
