@@ -5,12 +5,23 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+rng = Random.new(1337)
+
 Position.transaction do
-  (-30..30).each do |x|
-    print "#{x.to_s.rjust(3,' ')}:"
-    (-30..30).each do |y|
-      Position.find_or_create_by_x_and_y(x,y)
-      print '.'
+  (-30..30).each do |y|
+    print "#{y.to_s.rjust(3,' ')}:"
+    (-30..30).each do |x|
+
+
+      spawnX = ((x < 12) && (x > -12))
+      spawnY = ((y < 12) && (y > -12))
+      #12
+      if((rng.rand(1..12) == 1) && !(spawnX && spawnY))
+        print 'X'
+      else
+        Position.find_or_create_by_x_and_y(x,y)
+        print '.'
+      end
     end 
     print "\n"
   end  

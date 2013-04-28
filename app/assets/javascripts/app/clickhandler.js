@@ -65,9 +65,3 @@ var ClickHandler={
     }
   }
 }
-
-//Need to recompute stuff because this breaks as stuff gets resized it seems.
-
-$(window).resize(function() {
-  //resize just happened, pixels changed
-});

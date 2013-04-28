@@ -3,12 +3,15 @@ var Styles = {
   Fonts:null,
   LineWidth:null
 }
+
 Styles.Colors = {
   black: '#000000',
   white: '#ffffff',
   gridLines: '#003300',
   characterTile: '#333300',
-  walkableTile: '#111100',
+  withinRangeTile: '#111100',
+  impassableTile: '#222222',
+  impassableGrid: '#333333',
   selected: '#003300', //'rgba(0,20,0,0.2)'
   blinkRed:function(){
     var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE

@@ -5,7 +5,7 @@ GameObjects={
 
   init:function()
   {
-     Tiles.init();
      Panel.init();
+     Tiles.init();
   }
 }

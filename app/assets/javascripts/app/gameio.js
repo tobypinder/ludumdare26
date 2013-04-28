@@ -11,7 +11,7 @@ var GameIO = {
 
   load: function(target, data, callback) 
   {
-    var settings={};
+    var settings = {};
     settings.success  = callback;
     settings.context  = document.body;
     settings.data     = data;
@@ -34,15 +34,15 @@ var GameIO = {
   },
   processPosition:function(evt)
   {
-    console.log(evt);
     Player.position = evt.position
     GameIO.flagWorldRX = true;
-    GameIO.load('/api/world',{x:Player.position.x,y:Player.position.y} , GameIO.processWorld);
+    GameIO.load('/api/world', null, GameIO.processWorld);
+    
   },
   processWorld:function(evt)
   {
-    console.log(evt);
-    World.data = evt.world
+    World.update(evt);
+    Tiles.update();
     GameIO.flagPositionRX = true;
 
   }

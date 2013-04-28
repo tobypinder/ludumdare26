@@ -8,8 +8,8 @@ class WorldController < ApplicationController
   #the world in (as needed in future for scalability)
   def show
 
-    x=params[:x].to_i
-    y=params[:y].to_i
+    x = current_user.position.x.to_i
+    y = current_user.position.y.to_i
 
     world = Position.where("
       x >= :x_min AND

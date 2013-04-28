@@ -8,10 +8,10 @@ var Panel={
     ctx.strokeStyle = Styles.Colors.gridLines;
     ctx.beginPath();
     ctx.rect(
-      600, 
-      25, 
-      175, 
-      550);
+      Config.UIPANEL_X_OFFSET, 
+      Config.UIPANEL_Y_OFFSET, 
+      Config.UIPANEL_WIDTH, 
+      Config.UIPANEL_HEIGHT);
     ctx.stroke();
 
   }

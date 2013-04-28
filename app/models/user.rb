@@ -10,11 +10,39 @@ class User < ActiveRecord::Base
 
   #keep this non-destructive!
   def init_defaults
-    #if new_record?
-      self.position ||= 
-        Position.find_by_x_and_y(rand(-30..30),rand(-30..30)) #initial starting pos
-    #elsif some_int.nil?
-    #  errors.add(:some_int, "can't be blank on update")
-    #end
+    self.position ||= 
+      Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
   end
+
+  def move_up
+    new_pos = Position.find_by_x_and_y(self.position.x, self.position.y - 1)
+    save_position! new_pos
+  end
+
+  def move_down
+    new_pos = Position.find_by_x_and_y(self.position.x, self.position.y + 1)
+    save_position! new_pos
+  end
+
+  def move_left
+    new_pos = Position.find_by_x_and_y(self.position.x - 1, self.position.y)
+    save_position! new_pos
+  end
+  def move_right
+    new_pos = Position.find_by_x_and_y(self.position.x + 1, self.position.y)
+    save_position! new_pos
+  end
+
+private
+  def save_position! new_pos
+    if new_pos.nil?
+      false
+    else
+      self.position = new_pos
+      self.save!
+      true
+    end  
+    ##
+    self.position
+  end  
 end
