@@ -40,9 +40,16 @@ class User < ActiveRecord::Base
       #init junk if needed.
       if self.position.nil?
         self.position ||= 
-          Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
+          Position.find_by(x: rand(-10..10), y: rand(-10..10)) #initial starting pos
         self.save
       end
+
+      if self.game_rules.nil?
+        self.game_rules ||= GameRules.find_by(id:1) 
+        self.save
+      end
+
+
       #Death check
       if self.HP <= 0
         self.dying=true;

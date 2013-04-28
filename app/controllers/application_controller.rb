@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end  
 
   def check_tick
-    if(current_user.game_rules.tick_needed?)
+    if(current_user.present? && current_user.game_rules.present? && current_user.game_rules.tick_needed?)
       #poor man's cron
       current_user.game_rules.tick
     end
