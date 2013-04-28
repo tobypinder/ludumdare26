@@ -8,18 +8,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
          #:validatable broken with change to usernames
  
-  before_create :init_defaults
 
   after_initialize :player_status_check
 
   validates :username, :uniqueness => true
 
-  #keep this non-destructive!
-  #TODO: Add all the idle stuff etc.
-  def init_defaults
-    self.position ||= 
-      Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
-  end
 
   def move_up
     new_pos = Position.find_by_x_and_y(self.position.x, self.position.y - 1)
@@ -42,6 +35,14 @@ class User < ActiveRecord::Base
   def move_rest
   end  
   def player_status_check
+
+    #init junk if needed.
+    if self.position.nil?
+      self.position ||= 
+        Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
+      self.save!
+    end
+    #Death check
     if self.HP <= 0
       self.dying=true;
       self.save!
