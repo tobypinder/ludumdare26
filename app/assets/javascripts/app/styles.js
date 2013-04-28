@@ -38,7 +38,12 @@ Styles.Colors = {
     var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE
     var intensity = Math.round(Math.sin(Math.PI*a)*12+20);
     return "rgb("+intensity+","+intensity+",0)"
-  }
+  },
+  tileOtherPlayers:function(){
+    var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE
+    var intensity = Math.round(Math.sin(Math.PI*a)*12+20);
+    return "rgb(0,0,"+intensity+")"
+  },
 }
 
 Styles.Fonts = {

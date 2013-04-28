@@ -8,6 +8,7 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.ui_h = ui_h;
   this.coords = Config.COORDS_WORLD
   this.selected = false;
+  this.hasPlayers = false
   this.isCharacterLocation  = false
   this.isWithinRange        = false
   this.isImpassable         = false
@@ -18,6 +19,10 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.event_click=function(event)
   {
     //do stuff with this tile
+    for(var i=0;i<GameObjects.Tiles.list.length;i++)
+    {
+      GameObjects.Tiles.list[i].selected = false;
+    }
     this.selected=!this.selected;
   }
   this.worldX=function(){return Player.x+x}
@@ -56,6 +61,11 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
     if(this.selected){
       ctx.fillStyle = Styles.Colors.selected;
     } 
+
+    if(this.hasPlayers){
+      ctx.fillStyle = Styles.Colors.tileOtherPlayers();
+    } 
+
     if(this.isCharacterLocation){
       ctx.strokeStyle = Styles.Colors.characterTile;
       ctx.fillStyle = Styles.Colors.characterTile;
@@ -132,7 +142,7 @@ var Tiles={
         tile.isWithinRange = false
       }
       
-
+      tile.hasPlayers =false;
       if(!World.positionIsValid(
           Player.position.x + tile.x,
           Player.position.y + tile.y
@@ -140,7 +150,20 @@ var Tiles={
         tile.isImpassable = true
       } else {
         tile.isImpassable = false
+        //check more world stuff since it's valid
+        if(
+          World.positionPlayerCount(
+             Player.position.x + tile.x,
+            Player.position.y + tile.y
+          )>0 && !tile.isCharacterLocation
+        ) {
+          
+          tile.hasPlayers =true
+        }
+
       }
+
+
 
     }
     

@@ -11,7 +11,7 @@ class WorldController < ApplicationController
     x = current_user.position.x.to_i
     y = current_user.position.y.to_i
 
-    world = Position.where("
+    world = Position.includes([:users]).where("
       x >= :x_min AND
       x <= :x_max AND
       y >= :y_min AND
@@ -21,11 +21,11 @@ class WorldController < ApplicationController
       x_max: x+6,
       y_min: y-6,
       y_max: y+6
-    });
+    })
 
     #TODO: HACKED AROUND THE EDGES FOR DISPLAY
 
-    respond_with world
+    respond_with world.as_json(include: {users: {only: :username }})
   end  
 
 

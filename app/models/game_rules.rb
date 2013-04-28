@@ -1,6 +1,8 @@
 # There should only EVER be one of these, it exists as a DB object for tick management
 # And associating Tick metadata with objects.
 #
+
+#include ActionView::Helpers #DIRTY
 class GameRules < ActiveRecord::Base
   has_many :users
 
@@ -14,11 +16,16 @@ class GameRules < ActiveRecord::Base
 
     self.users.includes([:queued_items]).each do |u|
       if u.queued_items.length > 0
-        u.queued_items.first.process!
+         u.queued_items.first.process!
+      else
+        u.move_idle
       end
+
     end
     self.save
   end
+
+
 
   #purely academic: we'd rather be slow than dole out a crazy number of ticks!
   def ticks_needed

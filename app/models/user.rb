@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
 
   validates :username, :uniqueness => true
 
+  #ONLY get active users
+  default_scope { where(:updated_at => (Time.now - 3.hours)..Time.now) }
+
 
   def move_up
     new_pos = Position.find_by_x_and_y(self.position.x, self.position.y - 1)
@@ -34,7 +37,23 @@ class User < ActiveRecord::Base
     save_position! new_pos
   end
   def move_rest
+    regenerate self.regenHP
   end  
+
+  def move_idle
+    regenerate (self.regenHP/3).to_i
+  end
+
+  def regenerate amt
+    self.HP = [
+      self.maxHP,
+      self.HP + amt
+    ].min
+    self.save
+  end  
+
+
+
   def player_status_check
     unless self.id.nil?
       #init junk if needed.
@@ -62,6 +81,46 @@ class User < ActiveRecord::Base
     User.find(self).destroy
   end
 
+  def attempt_move pos
+    unless pos.nil?
+      self.position = pos
+      self.save
+    end
+  end
+
+
+##process the event
+  def process_queue_item action
+    #not a real command
+    #when 'idle'
+    #  self.regenerate_strong
+    case action
+      when 'move_idle'
+        self.move_idle ##SHOULD NEVER BE CALLED
+      when 'move_rest'
+        self.move_rest
+      when 'move_left'
+        self.attempt_move Position.find_by(
+            x: self.position.x-1,
+            y: self.position.y
+        )
+      when 'move_right'
+        self.attempt_move Position.find_by(
+            x: self.position.x+1,
+            y: self.position.y
+        )
+      when 'move_up'
+        self.attempt_move Position.find_by(
+            x: self.position.x,
+            y: self.position.y-1
+        )
+      when 'move_down'  
+        self.attempt_move Position.find_by(
+            x: self.position.x,
+            y: self.position.y+1
+        )
+    end 
+  end  
 
 private
   def save_position! new_pos
