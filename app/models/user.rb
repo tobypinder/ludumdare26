@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     save_position! new_pos
   end
 
-  def move_down
+  def move_downself
     new_pos = Position.find_by_x_and_y(self.position.x, self.position.y + 1)
     save_position! new_pos
   end
@@ -35,18 +35,19 @@ class User < ActiveRecord::Base
   def move_rest
   end  
   def player_status_check
-
-    #init junk if needed.
-    if self.position.nil?
-      self.position ||= 
-        Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
-      self.save!
+    unless self.id.nil?
+      #init junk if needed.
+      if self.position.nil?
+        self.position ||= 
+          Position.find_by_x_and_y(rand(-10..10),rand(-10..10)) #initial starting pos
+        self.save
+      end
+      #Death check
+      if self.HP <= 0
+        self.dying=true;
+        self.save
+      end  
     end
-    #Death check
-    if self.HP <= 0
-      self.dying=true;
-      self.save!
-    end  
   end  
 
   def death!
@@ -59,7 +60,7 @@ private
       false
     else
       self.position = new_pos
-      self.save!
+      self.save
       true
     end  
     ##
