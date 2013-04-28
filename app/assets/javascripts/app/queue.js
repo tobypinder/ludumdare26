@@ -12,6 +12,7 @@ var Queue={
         Queue.data.push(raw[i]);
       }
     }
+    Queue.updateTrail();
   },
   getName:function(action)
   {
@@ -37,6 +38,38 @@ var Queue={
       break;
     }
   },
+
+  updateTrail:function(){
+    slugX=0;
+    slugY=0;
+    GameObjects.Slug.list=[];
+    for(var i=0;i<Queue.data.length;i++)
+    {
+      var skip=false;
+      switch(Queue.data[i].action)
+      {
+        case 'move_left':
+          slugX--;
+        break;
+        case 'move_right':
+          slugX++;
+        break;
+        case 'move_up':
+          slugY--;
+        break;
+        case 'move_down':
+          slugY++;
+        break;
+        default:
+          skip=true;
+        break
+      }
+
+      GameObjects.Slug.list.push({x:slugX,y:slugY})
+
+    }
+  },
+
   render:function(ctx){
 
     //arrow

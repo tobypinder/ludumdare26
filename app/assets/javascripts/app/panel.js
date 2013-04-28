@@ -7,7 +7,10 @@ var Panel={
   buttonRest:{},
   init:function()
   {
-
+    this.initButtons();
+  },
+  initButtons:function()
+  {
     this.initButton(
       this.buttonGoUp,
       Config.UIPANELCONTROL_X_OFFSET + Config.TILE_SIZE,
@@ -47,7 +50,6 @@ var Panel={
       'Rest',
       function(){GameIO.moveRest()}
     )
-
   },
   initButton:function(obj,ui_x,ui_y,text,event_click){
     obj.ui_x = ui_x;
@@ -62,6 +64,18 @@ var Panel={
 
   render:function(ctx)
   {
+    
+    
+
+    //directionals
+    this.renderButtons(ctx);
+    this.renderClock(ctx);
+    this.renderStats(ctx);
+  },
+  renderButtons:function(ctx)
+  {
+
+    //control panel/text
     ctx.lineWidth = Styles.LineWidth.thin;
     ctx.strokeStyle = Styles.Colors.panelGridLines;
     ctx.beginPath();
@@ -81,18 +95,8 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET+(1.5*Config.TILE_SIZE),
       Config.UIPANELCONTROL_Y_OFFSET-Config.UIPANELCONTROL_LABEL_Y_OFFSET
     );
-    
 
-    //directionals
-    this.renderButtons(ctx);
-    this.renderClock(ctx);
-  },
-  renderButtons:function(ctx)
-  {
-
-
-
-
+    //buttons
     ctx.strokeStyle = Styles.Colors.buttonGridLines;
     ctx.fillStyle   = Styles.Colors.buttonFill;
 
@@ -137,7 +141,6 @@ var Panel={
       obj.ui_x+(obj.ui_w/2),
       obj.ui_y+(obj.ui_h/2)+Config.UIBUTTON_OFFSET_Y
     )
-
   },
   renderClock:function(ctx)
   {
@@ -177,5 +180,113 @@ var Panel={
     ctx.lineTo(Config.UICLOCK_MIDPOINT_X,Config.UICLOCK_MIDPOINT_Y);
     ctx.closePath();
     ctx.fill();
+  },
+  renderStats:function(ctx)
+  {
+      
+      ctx.fillStyle = Styles.Colors.controlsLabel;
+      
+      //PLAYER name
+      ctx.font      = Styles.Fonts.statsLabel;
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        Player.username.toUpperCase(),
+        Config.UISTATS_X_OFFSET+(Config.UISTATS_WIDTH/2),
+        Config.UISTATS_Y_OFFSET
+      );
+
+      //
+      // HP BAR
+      //
+      ctx.fillStyle = Styles.Colors.HP_BG;
+      
+      ctx.beginPath();
+      ctx.rect(
+        Config.UISTATS_X_OFFSET, 
+        Config.UISTATS_Y_OFFSET+4, 
+        Config.UISTATS_WIDTH, 
+        Config.UISTATS_HEIGHT-4);
+      ctx.fill();
+
+      var hpWidth = Player.HP / Player.maxHP
+      ctx.fillStyle = Styles.Colors.HP_FG;
+      ctx.beginPath();
+      ctx.rect(
+        Config.UISTATS_X_OFFSET, 
+        Config.UISTATS_Y_OFFSET+4, 
+       (Config.UISTATS_WIDTH * hpWidth), 
+        Config.UISTATS_HEIGHT-4);
+      ctx.fill();
+
+      ctx.fillStyle = Styles.Colors.controlsLabel;
+      //
+      // Labels
+      //
+      ctx.font      = Styles.Fonts.statsLabel;
+      ctx.textAlign = 'left';
+
+      //HP
+      
+      ctx.fillText(
+        "HP:",
+        Config.UISTATS_X_OFFSET,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*2)
+      );
+
+      //Regen
+      ctx.fillText(
+        "Regen:",
+        Config.UISTATS_X_OFFSET,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*3)
+      );
+
+      //Attack
+      ctx.fillText(
+        "Atk:",
+        Config.UISTATS_X_OFFSET,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*4)
+      );
+
+      //Attack
+      ctx.fillText(
+        "Def:",
+        Config.UISTATS_X_OFFSET,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*5)
+      );
+
+      //
+      // Vals
+      //
+
+      ctx.font      = Styles.Fonts.statsValue;
+      ctx.textAlign = 'right';
+
+      //HP
+      ctx.fillText(
+        Player.HP+" / "+Player.maxHP,
+        Config.UISTATS_X_OFFSET+Config.UISTATS_WIDTH,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*2)
+      );
+
+      //Regen
+      ctx.fillText(
+        Player.regenHP + " pts/turn",
+        Config.UISTATS_X_OFFSET+Config.UISTATS_WIDTH,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*3)
+      );
+
+      //Atk
+      ctx.fillText(
+        Player.attack + " pts",
+        Config.UISTATS_X_OFFSET+Config.UISTATS_WIDTH,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*4)
+      );
+
+      //Def
+      ctx.fillText(
+        Player.defence + " pts",
+        Config.UISTATS_X_OFFSET+Config.UISTATS_WIDTH,
+        Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*5)
+      );
   }
 }

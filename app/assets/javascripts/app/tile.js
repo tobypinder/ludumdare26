@@ -13,6 +13,8 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.isImpassable         = false
 
 
+
+
   this.event_click=function(event)
   {
     //do stuff with this tile
@@ -22,16 +24,35 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.worldY=function(){return Player.x+x}
   this.render=function(ctx)
   {
+
+    //must check slug status every frame. Hawkward.
+    this.isSlug = false;
+    for(var i=0;i<GameObjects.Slug.list.length;i++)
+    {
+      var slug = GameObjects.Slug.list[i];
+      if(slug.x == this.x && slug.y == this.y)
+      {
+        this.isSlug = true;
+      }
+    }
+
+
+
+
+
     ctx.strokeStyle = Styles.Colors.gridLines;
     ctx.fillStyle   = Styles.Colors.black;
     ctx.lineWidth   = Styles.LineWidth.thin;
     
     //Special Case overrides - first = lowest priority
 
-    
-    if(this.isWithinRange){
-      ctx.fillStyle = Styles.Colors.withinRangeTile;
-    } 
+    //this sucks.
+    //if(this.isWithinRange){
+    //  ctx.fillStyle = Styles.Colors.withinRangeTile;
+    //} 
+    if(this.isSlug){
+      ctx.fillStyle = Styles.Colors.slugTrail();
+    }
     if(this.selected){
       ctx.fillStyle = Styles.Colors.selected;
     } 
