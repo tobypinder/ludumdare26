@@ -4,9 +4,11 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
+         #:validatable broken with change to usernames
  
   before_create :init_defaults
+  validates :username, :uniqueness => true
 
   #keep this non-destructive!
   def init_defaults
