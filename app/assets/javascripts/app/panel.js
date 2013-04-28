@@ -13,7 +13,7 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET + Config.TILE_SIZE,
       Config.UIPANELCONTROL_Y_OFFSET,
       'Up',
-      function(){console.log("Up")}
+      function(){GameIO.moveUp()}
     )
 
     this.initButton(
@@ -21,7 +21,7 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET + Config.TILE_SIZE,
       Config.UIPANELCONTROL_Y_OFFSET + 2*Config.TILE_SIZE,
       'Down',
-      function(){console.log("Down")}
+      function(){GameIO.moveDown()}
     )
     
     this.initButton(
@@ -29,7 +29,7 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET ,
        Config.UIPANELCONTROL_Y_OFFSET + Config.TILE_SIZE,
       'Left',
-      function(){console.log("Left")}
+      function(){GameIO.moveLeft()}
     )
 
     this.initButton(
@@ -37,7 +37,7 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET + 2*Config.TILE_SIZE,
       Config.UIPANELCONTROL_Y_OFFSET + Config.TILE_SIZE,
       'Right',
-      function(){console.log("Right")}
+      function(){GameIO.moveRight()}
     )
 
     this.initButton(
@@ -45,7 +45,7 @@ var Panel={
       Config.UIPANELCONTROL_X_OFFSET + Config.TILE_SIZE,
       Config.UIPANELCONTROL_Y_OFFSET + Config.TILE_SIZE,
       'Rest',
-      function(){console.log("Rest")}
+      function(){GameIO.moveRest()}
     )
 
   },
@@ -85,7 +85,7 @@ var Panel={
 
     //directionals
     this.renderButtons(ctx);
-
+    this.renderClock(ctx);
   },
   renderButtons:function(ctx)
   {
@@ -138,5 +138,44 @@ var Panel={
       obj.ui_y+(obj.ui_h/2)+Config.UIBUTTON_OFFSET_Y
     )
 
+  },
+  renderClock:function(ctx)
+  {
+    
+    //assume semi circle for now.
+    var now = new Date().getTime();
+    var arcPercent = 1-(now - State.clockInitTime)/State.clockTotalTime
+
+    //var arcPercent=1 - ((State.frameCount % 300)/300);
+
+    ctx.fillStyle   = Styles.Colors.clockBG;
+    ctx.beginPath();
+    ctx.moveTo(Config.UICLOCK_MIDPOINT_X,Config.UICLOCK_MIDPOINT_Y);
+    ctx.arc(
+      Config.UICLOCK_MIDPOINT_X,
+      Config.UICLOCK_MIDPOINT_Y,
+      Config.UICLOCK_RADIUS_BIG,
+      0,
+      Math.PI*2,
+      false
+    );
+    ctx.lineTo(Config.UICLOCK_MIDPOINT_X,Config.UICLOCK_MIDPOINT_Y);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle   = Styles.Colors.clockFG;
+    ctx.beginPath();
+    ctx.moveTo(Config.UICLOCK_MIDPOINT_X,Config.UICLOCK_MIDPOINT_Y);
+    ctx.arc(
+      Config.UICLOCK_MIDPOINT_X,
+      Config.UICLOCK_MIDPOINT_Y,
+      Config.UICLOCK_RADIUS,
+      -(0.5*Math.PI),
+      (Math.PI*2*arcPercent)-(0.5*Math.PI),
+      false
+    );
+    ctx.lineTo(Config.UICLOCK_MIDPOINT_X,Config.UICLOCK_MIDPOINT_Y);
+    ctx.closePath();
+    ctx.fill();
   }
 }

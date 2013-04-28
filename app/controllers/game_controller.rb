@@ -9,6 +9,6 @@ class GameController < ApplicationController
   def player_info
     current_user.position
 
-    respond_with current_user.as_json(include: [:position,:queued_items])
+    respond_with current_user.as_json(include: [:position,:queued_items,:game_rules])
   end  
 end

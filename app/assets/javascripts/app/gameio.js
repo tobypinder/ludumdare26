@@ -26,27 +26,34 @@ var GameIO = {
   },
   getInitialData: function()
   {
-    this.load('/api/player/info',null, this.processPlayer);
+    GameIO.load('/api/player/info',null, GameIO.processPlayer);
   },
+
+  getPlayerData: function()
+  {
+    GameIO.load('/api/player/info',null, GameIO.processPlayer);
+  },
+
+
   moveLeft:function()
   {
-    this.load('/api/move/left',null, this.processMovementRequest); 
+    GameIO.load('/api/move/left',null, GameIO.processMovementRequest); 
   },
   moveRight:function()
   {
-    this.load('/api/move/right',null, this.processMovementRequest); 
+    GameIO.load('/api/move/right',null, GameIO.processMovementRequest); 
   },
   moveUp:function()
   {
-    this.load('/api/move/up',null, this.processMovementRequest); 
+    GameIO.load('/api/move/up',null, GameIO.processMovementRequest); 
   },
   moveDown:function()
   {
-    this.load('/api/move/down',null, this.processMovementRequest); 
+    GameIO.load('/api/move/down',null, GameIO.processMovementRequest); 
   },
   moveRest:function()
   {
-    this.load('/api/move/rest',null, this.processMovementRequest); 
+    GameIO.load('/api/move/rest',null, GameIO.processMovementRequest); 
   },  
   //HANDLERS
   processPlayer:function(evt)
@@ -64,9 +71,18 @@ var GameIO = {
     Player.defence  = p.defence
     Player.exp      = p.exp
     Player.position = p.position
-    
+    Queue.update(p.queued_items,false);
     GameIO.load('/api/world', null, GameIO.processWorld);
     
+    //get player data for the next turn.
+    var nextTurnSeconds = (p.game_rules.lastTick + p.game_rules.tickRate) - p.game_rules.now
+    var nextTurnMS = (nextTurnSeconds*1000)+Config.AJAX_WAIT_TIME
+    console.log("Reloading Data in "+nextTurnMS+" milliseconds!");
+    State.clockTotalTime  = nextTurnMS
+    State.clockInitTime   = new Date().getTime();
+
+
+    setTimeout(GameIO.getPlayerData, nextTurnMS);
   },
   processWorld:function(evt)
   {
@@ -77,6 +93,7 @@ var GameIO = {
   },
   processMovementRequest:function(evt)
   {
-
+    Queue.update(evt,true);
+    GameIO.load('/api/world', null, GameIO.processWorld);
   }
 }

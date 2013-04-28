@@ -5,6 +5,8 @@ var Config={
   TARGET_FPS:30,
   TARGET_MS:null,
   DEBUG_INFO:<%= !Rails.env.production? ? 'true': 'false' %>,
+  AJAX_WAIT_TIME:<%= !Rails.env.production? ? 300: 2000 %>, //time to wait "past" the deadline for new turn.
+
   /*
    * Doesn't factor Zoom etc. Remember that in order to avoid gaps and render
    * without odd gaps you
@@ -22,6 +24,7 @@ var Config={
   UIPANEL_Y_OFFSET:25,
   UIPANEL_WIDTH:175,
   UIPANEL_HEIGHT:550,
+  UIQUEUE_LABEL_Y_OFFSET:18,
 
   WORLDBOUNDARY_X:30, // Mirrored: ie -x -> 0 -> x
   WORLDBOUNDARY_Y:30, // Mirrored: ie -y -> 0 -> y
@@ -32,7 +35,6 @@ var Config={
   INIT_WAIT_TICKMS:1000,
   INIT_WAIT_TIMEOUT:10000,
   BLINK_RATE:2000,
-  TURN_RATE:60000, //TODO
   UIPANELCONTROL_LABEL_Y_OFFSET:5,
   UIBUTTON_OFFSET_Y:6,
 
@@ -46,8 +48,16 @@ var Config={
   UIPANELSTATS_X_OFFSET:null,
   UIPANELSTATS_Y_OFFSET:null,
   UIPANELSTATS_WIDTH:null,
-  UIPANELSTATS_HEIGHT:null
-  
+  UIPANELSTATS_HEIGHT:null,
+  UIQUEUE_X_OFFSET:null,
+  UIQUEUE_Y_OFFSET:null,
+  UIQUEUE_WIDTH:null,
+  UIQUEUE_HEIGHT:null,
+  UIQUEUE_SPACER:null,
+  UICLOCK_MIDPOINT_X:null,
+  UICLOCK_MIDPOINT_Y:null,
+  UICLOCK_RADIUS:null
+
 }
 
 //Later evals
@@ -61,7 +71,19 @@ Config.UIPANELCONTROL_Y_OFFSET = Config.UIPANEL_Y_OFFSET+Config.UIPANEL_HEIGHT-(
 Config.UIPANELCONTROL_WIDTH    = Config.TILE_SIZE*3
 Config.UIPANELCONTROL_HEIGHT   = Config.TILE_SIZE*3
 
+//TODO
 Config.UIPANELSTATS_X_OFFSET = Config.UIPANEL_X_OFFSET+(((Config.UIPANEL_WIDTH)-(Config.TILE_SIZE*3))*0.5);
 Config.UIPANELSTATS_Y_OFFSET = Config.UIPANEL_Y_OFFSET+(3.25*Config.TILE_SIZE);
 Config.UIPANELSTATS_WIDTH    = Config.TILE_SIZE*3
 Config.UIPANELSTATS_HEIGHT   = Config.TILE_SIZE*4
+
+Config.UIQUEUE_X_OFFSET   = Config.UIPANELCONTROL_X_OFFSET+(2*Config.TILE_SIZE);
+Config.UIQUEUE_Y_OFFSET   = Config.UIPANELCONTROL_Y_OFFSET-Config.TILE_SIZE;
+Config.UIQUEUE_WIDTH      = Config.TILE_SIZE;
+Config.UIQUEUE_HEIGHT     = Config.TILE_SIZE/2;
+Config.UIQUEUE_SPACER     = Config.UIQUEUE_HEIGHT + 5 
+
+Config.UICLOCK_MIDPOINT_X = Config.UIPANELCONTROL_X_OFFSET+(2.5*Config.TILE_SIZE);
+Config.UICLOCK_MIDPOINT_Y = Config.UIPANELCONTROL_Y_OFFSET-Config.TILE_SIZE - (Config.UIQUEUE_SPACER * 10);
+Config.UICLOCK_RADIUS     = 20;
+Config.UICLOCK_RADIUS_BIG = 25;

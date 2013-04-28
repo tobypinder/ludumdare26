@@ -41,6 +41,7 @@ var GameCanvas={
           this.drawGridLabels(this.ctx)
         this.toUICoords(this.ctx);
           Panel.render(this.ctx);
+          Queue.render(this.ctx);
           this.drawDebugPanel(this.ctx);
       break;
     }

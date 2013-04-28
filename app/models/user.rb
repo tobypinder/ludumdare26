@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :position 
+  belongs_to :game_rules
   has_many :queued_items
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -53,6 +54,7 @@ class User < ActiveRecord::Base
   def death!
     User.find(self).destroy
   end
+
 
 private
   def save_position! new_pos

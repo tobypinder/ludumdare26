@@ -19,7 +19,6 @@ class PositionController < ApplicationController
     respond_with enqueue(:move_left)   
   end
   def move_down
-    
     respond_with enqueue(:move_down)
   end
   def move_rest

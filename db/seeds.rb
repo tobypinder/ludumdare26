@@ -29,3 +29,8 @@ Position.transaction do
     print "\n"
   end  
 end
+
+ruleset = GameRules.find_or_create_by_id(1)
+#ruleset.lastTick = Time.now.to_i
+ruleset.tickRate = !Rails.env.production? ? 5: 60 #seconds
+ruleset.save

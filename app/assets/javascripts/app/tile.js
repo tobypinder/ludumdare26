@@ -1,7 +1,7 @@
 function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
 {
-  this.x    = x;
-  this.y    = y;
+  this.x    = x; //local grid
+  this.y    = y; //local grid
   this.ui_x = ui_x;
   this.ui_y = ui_y;
   this.ui_w = ui_w;
@@ -18,7 +18,8 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
     //do stuff with this tile
     this.selected=!this.selected;
   }
-
+  this.worldX=function(){return Player.x+x}
+  this.worldY=function(){return Player.x+x}
   this.render=function(ctx)
   {
     ctx.strokeStyle = Styles.Colors.gridLines;
@@ -91,9 +92,13 @@ var Tiles={
     {
 
       tile = GameObjects.Tiles.list[idx];
+      
       if(tile.x==0 && tile.y==0) {
         tile.isCharacterLocation = true;
+      } else {
+        tile.isCharacterLocation = false;
       }
+
       if(
         (tile.x==1  && tile.y ==0)  ||
         (tile.x==-1 && tile.y ==0)  ||
@@ -102,6 +107,8 @@ var Tiles={
       )
       {
         tile.isWithinRange = true
+      } else {
+        tile.isWithinRange = false
       }
       
 
@@ -110,6 +117,8 @@ var Tiles={
           Player.position.y + tile.y
       )){
         tile.isImpassable = true
+      } else {
+        tile.isImpassable = false
       }
 
     }

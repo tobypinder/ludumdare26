@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130428064837) do
+ActiveRecord::Schema.define(version: 20130428134955) do
+
+  create_table "game_rules", force: true do |t|
+    t.integer "lastTick",   default: 0,  null: false
+    t.integer "totalTicks", default: 0,  null: false
+    t.integer "tickRate",   default: 60, null: false
+    t.integer "now",        default: 0,  null: false
+  end
 
   create_table "positions", force: true do |t|
     t.integer "x"
@@ -47,6 +54,7 @@ ActiveRecord::Schema.define(version: 20130428064837) do
     t.integer  "defence",                default: 200,   null: false
     t.integer  "exp",                    default: 0,     null: false
     t.boolean  "dying",                  default: false, null: false
+    t.integer  "game_rules_id",          default: 0,     null: false
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
