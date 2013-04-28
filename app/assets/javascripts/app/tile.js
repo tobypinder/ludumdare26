@@ -6,6 +6,7 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.ui_y = ui_y;
   this.ui_w = ui_w;
   this.ui_h = ui_h;
+  this.coords = Config.COORDS_WORLD
   this.selected = false;
   this.isCharacterLocation  = false
   this.isWithinRange        = false

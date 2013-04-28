@@ -5,6 +5,7 @@ var ClickHandler={
   //obj.ui_y=y;
   //obj.ui_w=w;
   //obj.ui_h=h;
+  //obj.coords=Config.COORDS_UI|WORLD
   //obj.event_click=evt;
   objs:[],
   process:function(event){
@@ -32,12 +33,12 @@ var ClickHandler={
 
 
 
-    var c = ClickHandler.translate(x,y); //clicked point
-    console.log("You clicked canvas coord ["+x+","+y+"] (["+c.x+","+c.y+"])")
+    
     for(idx in ClickHandler.objs)
     {
-
-      target=ClickHandler.objs[idx]; 
+      
+      var target=ClickHandler.objs[idx]; 
+      var c = ClickHandler.translate(target.coords,x,y); //clicked point
       //console.log(target);
       if(
         (c.x > target.ui_x) && 
@@ -46,6 +47,7 @@ var ClickHandler={
         (c.y < (target.ui_y+target.ui_h))
       )
       {
+        //console.log(target)
         ClickHandler.objs[idx].event_click(event);
       }
     }
@@ -57,11 +59,23 @@ var ClickHandler={
    * Translate into in-game coords, returning obj.x/y pair
    * TODO: Scale and Rotate Support!
    */
-  translate:function(x,y)
+  translate:function(coords,x,y)
   {
-    return obj={
-      x:x-Config.UIWORLD_WIDTH/2,
-      y:y-Config.UIWORLD_HEIGHT/2
+    //console.log("Clicked UI:["+x+","+y+"] World:["+(x-Config.UIWORLD_WIDTH/2)+","+(y-Config.UIWORLD_HEIGHT/2)+"]")
+    switch(coords) {
+      case Config.COORDS_UI:
+        return obj={
+          x:x,
+          y:y
+        }
+      break;
+      case Config.COORDS_WORLD:
+      default:
+        return obj={
+          x:x-Config.UIWORLD_WIDTH/2,
+          y:y-Config.UIWORLD_HEIGHT/2
+        }
+      break;
     }
   }
 }

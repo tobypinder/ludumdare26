@@ -70,8 +70,9 @@ var GameCanvas={
   },
   drawGridLabels:function(ctx)
   {
-    ctx.font = Styles.Fonts.gridLabel;
-    ctx.fillStyle = Styles.Colors.gridLines
+    ctx.font      = Styles.Fonts.gridLabel;
+    ctx.fillStyle = Styles.Colors.gridLines;
+
     var ts = Config.TILE_SIZE;
     //X
     for(var i=-Config.GRID_RADIUS;i<=Config.GRID_RADIUS;i++) {

@@ -8,6 +8,11 @@ Styles.Colors = {
   black: '#000000',
   white: '#ffffff',
   gridLines: '#003300',
+  buttonGridLines: '#333300',
+  panelGridLines: '#330000',
+  buttonFill: '#111100',
+  buttonLabel: '#999900',
+  controlsLabel: '#666600',
   characterTile: '#333300',
   withinRangeTile: '#111100',
   impassableTile: '#222222',
@@ -24,6 +29,8 @@ Styles.Colors = {
 }
 
 Styles.Fonts = {
+  controlsTitle: "bold 14px Electrolizeregular",  
+  controlsLabel: "14px Electrolizeregular",
   normal:     "bold 18px Electrolizeregular",
   gridLabel:  "bold 11px Electrolizeregular",
   hugeBanner: "bold 96px Electrolizeregular" 

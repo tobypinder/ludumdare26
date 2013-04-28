@@ -11,15 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130428050057) do
+ActiveRecord::Schema.define(version: 20130428064837) do
 
   create_table "positions", force: true do |t|
     t.integer "x"
     t.integer "y"
   end
 
+  create_table "queued_items", force: true do |t|
+    t.integer  "user_id",                     null: false
+    t.string   "action",     default: "wait", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -31,10 +38,18 @@ ActiveRecord::Schema.define(version: 20130428050057) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position_id"
-    t.string   "username",              default: "", null: false
+    t.string   "username",               default: "",    null: false
+    t.integer  "HP",                     default: 1000,  null: false
+    t.integer  "maxHP",                  default: 1000,  null: false
+    t.integer  "maxQP",                  default: 10,    null: false
+    t.integer  "regenHP",                default: 7,     null: false
+    t.integer  "attack",                 default: 500,   null: false
+    t.integer  "defence",                default: 200,   null: false
+    t.integer  "exp",                    default: 0,     null: false
+    t.boolean  "dying",                  default: false, null: false
   end
 
-  add_index "users", ["username"], name: "index_users_on_username", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end

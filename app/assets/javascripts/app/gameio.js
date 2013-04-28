@@ -1,10 +1,10 @@
 var GameIO = {
-  flagPositionRX:false,
+  flagPlayerRX:false,
   flagWorldRX:false,
   isReady:function()
   {
     return (
-        this.flagPositionRX &&
+        this.flagPlayerRX &&
         this.flagWorldRX
     );
   },
@@ -26,16 +26,45 @@ var GameIO = {
   },
   getInitialData: function()
   {
-    //WE NEED TO "BLOCK" ON THE RESULTS OF THESE AS WITHOUT THE INITIAL STATE, THE 
-    //GAME CAN DO NOTHING!
-    this.load('/api/current_position',null, this.processPosition);
-    
-
+    this.load('/api/player/info',null, this.processPlayer);
   },
-  processPosition:function(evt)
+  moveLeft:function()
   {
-    Player.position = evt.position
-    GameIO.flagWorldRX = true;
+    this.load('/api/move/left',null, this.processMovementRequest); 
+  },
+  moveRight:function()
+  {
+    this.load('/api/move/right',null, this.processMovementRequest); 
+  },
+  moveUp:function()
+  {
+    this.load('/api/move/up',null, this.processMovementRequest); 
+  },
+  moveDown:function()
+  {
+    this.load('/api/move/down',null, this.processMovementRequest); 
+  },
+  moveRest:function()
+  {
+    this.load('/api/move/rest',null, this.processMovementRequest); 
+  },  
+  //HANDLERS
+  processPlayer:function(evt)
+  {
+    GameIO.flagPlayerRX = true;
+    
+    var p = evt.user
+
+    Player.username = p.username
+    Player.HP       = p.HP
+    Player.maxHP    = p.maxHP
+    Player.maxQP    = p.maxQP
+    Player.regenHP  = p.regenHP
+    Player.attack   = p.attack
+    Player.defence  = p.defence
+    Player.exp      = p.exp
+    Player.position = p.position
+    
     GameIO.load('/api/world', null, GameIO.processWorld);
     
   },
@@ -43,7 +72,11 @@ var GameIO = {
   {
     World.update(evt);
     Tiles.update();
-    GameIO.flagPositionRX = true;
+    GameIO.flagWorldRX = true;
+
+  },
+  processMovementRequest:function(evt)
+  {
 
   }
 }

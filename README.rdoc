@@ -13,8 +13,9 @@
 
 == BUGS
 * Initial Setting Of Player Position etc. In fact, make it [0,0]
+* [URGENT] Devise needs attention since it's not currently validating stuff on register etc.
 
 == GOTCHAS
 * Changing the Map Size? Make sure to reset table defaults!
-* Changing the viewable map size? You'll have to modify a few things client/server side.
+* Changing the viewable map size? You have to modify a few things client/server side.
 * Make sure people and entities don't spawn in walls (cells without being in the Position db)

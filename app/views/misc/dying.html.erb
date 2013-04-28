@@ -1,0 +1,10 @@
+<h1>Ouch dude!</h1> 
+
+<p>Unfortunately You Died! Your user account will be FOREVER purged from
+the system. Please create a new account to try again (you aren't a ragequitter now are you? :) )</p>
+
+<%= form_tag misc_dying_path do %>
+<%= hidden_field_tag 'confirmdeath', 'confirm' %>
+<%= submit_tag 'OK Then...', confirm: 'Better Luck Next Time!', class: 'btn btn-danger' %>
+
+<% end %>
