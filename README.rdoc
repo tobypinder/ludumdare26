@@ -16,6 +16,7 @@
 * [URGENT] Devise needs attention since it's not currently validating stuff on register etc.
 * [CRITICAL] Thread/Concurrent safe Cron! Two users accessing at the same time could =
              Two queue processing jobs running!
+* Map that is given to usetr is larger to mask display bugs.
 
 == GOTCHAS
 * Changing the Map Size? Make sure to reset table defaults!

@@ -17,11 +17,13 @@ class WorldController < ApplicationController
       y >= :y_min AND
       y <= :y_max
     ", {
-      x_min: x-5,
-      x_max: x+5,
-      y_min: y-5,
-      y_max: y+5
+      x_min: x-6,
+      x_max: x+6,
+      y_min: y-6,
+      y_max: y+6
     });
+
+    #TODO: HACKED AROUND THE EDGES FOR DISPLAY
 
     respond_with world
   end  
