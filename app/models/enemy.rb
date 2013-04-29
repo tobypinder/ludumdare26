@@ -9,9 +9,9 @@ class Enemy < ActiveRecord::Base
 
   def kill! murderer
     rng = Random.new()
-    x = rng.rand(1..(10000/self.loot_level).to_i)
+    x = rng.rand(1..(300/self.loot_level).to_i)
     case x
-    when 1
+    when 1   
       murderer.regenHP += 1  
     when 2..10
       murderer.maxHP += 5
@@ -21,6 +21,21 @@ class Enemy < ActiveRecord::Base
       murderer.defence += 1  
     end 
     murderer.save
+
+    ##seed 2 monsters :D
+    monstersLeft=2
+    attemptsLeft=10
+    while attemptsLeft > 0 && monstersLeft > 0 
+      p = Position.find_by(
+          x:rng.rand(-30..30),
+          y:rng.rand(-30..30)
+      ) 
+      unless p.nil?
+        Enemy.make(p)
+        monstersLeft = monstersLeft - 1
+      end
+      attemptsLeft = attemptsLeft - 1 
+    end  
     death!
 
   end

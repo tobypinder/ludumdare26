@@ -95,7 +95,8 @@ var GameIO = {
   },
   processMovementRequest:function(evt)
   {
-    Queue.update(evt,true);
+    
     GameIO.load('/api/world', null, GameIO.processWorld);
+    Queue.update(evt,true);
   }
 }

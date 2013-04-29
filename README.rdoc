@@ -22,3 +22,6 @@
 * Changing the Map Size? Make sure to reset table defaults!
 * Changing the viewable map size? You have to modify a few things client/server side.
 * Make sure people and entities don't spawn in walls (cells without being in the Position db)
+
+
+rake db:drop db:create db:schema:load db:migrate db:seed game:spawn

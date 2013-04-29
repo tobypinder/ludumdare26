@@ -3,7 +3,7 @@ namespace :game do
   task :spawn => :environment do 
     Position.all.each do |p|
       rng=Random.new()
-      if(rng.rand(1..20) == 1)
+      if(rng.rand(1..5) == 1)
         e = Enemy.make(p)
         e.save
       else

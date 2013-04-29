@@ -109,9 +109,11 @@ class User < ActiveRecord::Base
       if target.HP <= 0
         target.kill!(self)
       else
+        #retaliation.
+        self.HP =  self.HP - (target.attack - self.defence)
+        self.save
         target.save 
       end
-      
     end
   end
 
