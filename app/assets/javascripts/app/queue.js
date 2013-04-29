@@ -105,9 +105,6 @@ var Queue={
     {
       ctx.lineWidth = Styles.LineWidth.thin;
       ctx.strokeStyle = Styles.Colors.queueGridLines;
-      
-
-
 
       if(Queue.data.length>i) {
         ctx.fillStyle = Styles.Colors.queueFill;

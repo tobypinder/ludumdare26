@@ -25,6 +25,9 @@ Styles.Colors = {
   selected: '#003300', //'rgba(0,20,0,0.2)'
   HP_BG: '#660000',
   HP_FG: '#006600',
+  inspectPlayer: '#00AAAA',
+  inspectEnemy: '#AA0000',
+
 
   blinkRed:function(){
     var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE
@@ -44,17 +47,22 @@ Styles.Colors = {
     var intensity = Math.round(Math.sin(Math.PI*a)*12+20);
     return "rgb(0,0,"+intensity+")"
   },
+  tileEnemies:function(){
+    var a = (new Date().getTime() % Config.BLINK_RATE) / Config.BLINK_RATE
+    var intensity = Math.round(Math.sin(Math.PI*a)*12+20);
+    return "rgb("+intensity+",0,0)"
+  }
 }
 
 Styles.Fonts = {
-  queueItem: "12px Electrolizeregular",  
-  controlsTitle: "bold 14px Electrolizeregular",  
-  controlsLabel: "14px Electrolizeregular",
-  normal:     "bold 18px Electrolizeregular",
-  gridLabel:  "bold 11px Electrolizeregular",
-  hugeBanner: "bold 96px Electrolizeregular",
-  statsLabel: "11px Electrolizeregular",
-  statsValue: "11px Electrolizeregular"
+  queueItem:      "12px Electrolizeregular",  
+  controlsTitle:  "bold 14px Electrolizeregular",  
+  controlsLabel:  "14px Electrolizeregular",
+  normal:         "bold 18px Electrolizeregular",
+  gridLabel:      "bold 11px Electrolizeregular",
+  hugeBanner:     "bold 96px Electrolizeregular",
+  statsLabel:     "11px Electrolizeregular",
+  statsValue:     "11px Electrolizeregular"
 }
 
 Styles.LineWidth={

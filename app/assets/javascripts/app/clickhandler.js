@@ -47,7 +47,6 @@ var ClickHandler={
         (c.y < (target.ui_y+target.ui_h))
       )
       {
-        //console.log(target)
         ClickHandler.objs[idx].event_click(event);
       }
     }

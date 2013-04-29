@@ -14,6 +14,8 @@ var State={
 
   clockTotalTime:0,
   clockElapsedTime:0,
-  clockInitTime:0
+  clockInitTime:0,
 
+  selectedTile_X:0,
+  selectedTile_Y:0
 }

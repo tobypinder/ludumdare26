@@ -20,7 +20,7 @@ Position.transaction do
 
       #12
       if(((rng.rand(1..12) == 1) && !(spawnX && spawnY)) || radialDistance > 30)
-        print 'X'
+        print '#'
       else
         Position.find_or_create_by_x_and_y(x,y)
         print '.'
@@ -34,3 +34,4 @@ ruleset = GameRules.find_or_create_by_id(1)
 #ruleset.lastTick = Time.now.to_i
 ruleset.tickRate = !Rails.env.production? ? 5: 30 #seconds
 ruleset.save
+

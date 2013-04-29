@@ -15,25 +15,37 @@ class User < ActiveRecord::Base
   validates :username, :uniqueness => true
 
   #ONLY get active users
-  default_scope { where(:updated_at => (Time.now - 3.hours)..Time.now) }
-
+  default_scope lambda{ where(:updated_at => (Time.now - 3.hours)..Time.now) }
+  scope :living, lambda{ where(dying: false) }
 
   def move_up
-    new_pos = Position.find_by_x_and_y(self.position.x, self.position.y - 1)
+    new_pos = Position.find_by(
+      x:self.position.x, 
+      y:self.position.y - 1
+    )
     save_position! new_pos
   end
 
   def move_downself
-    new_pos = Position.find_by_x_and_y(self.position.x, self.position.y + 1)
+    new_pos = Position.find_by(
+      x:self.position.x, 
+      y:self.position.y + 1
+    )
     save_position! new_pos
   end
 
   def move_left
-    new_pos = Position.find_by_x_and_y(self.position.x - 1, self.position.y)
+    new_pos = Position.find_by(
+      x:self.position.x - 1, 
+      y:self.position.y
+    )
     save_position! new_pos
   end
   def move_right
-    new_pos = Position.find_by_x_and_y(self.position.x + 1, self.position.y)
+    new_pos = Position.find_by(
+      x:self.position.x + 1, 
+      y:self.position.y
+    )
     save_position! new_pos
   end
   def move_rest
@@ -42,6 +54,8 @@ class User < ActiveRecord::Base
 
   def move_idle
     regenerate (self.regenHP/3).to_i
+
+    attempt_attack
   end
 
   def regenerate amt
@@ -85,6 +99,19 @@ class User < ActiveRecord::Base
     unless pos.nil?
       self.position = pos
       self.save
+    end
+  end
+
+  def attempt_attack
+    target = self.position.enemies.first;
+    unless target.nil?
+      target.HP =  target.HP - (self.attack - target.defence)
+      if target.HP <= 0
+        target.kill!(self)
+      else
+        target.save 
+      end
+      
     end
   end
 

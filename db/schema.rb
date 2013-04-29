@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130428134955) do
+ActiveRecord::Schema.define(version: 20130428235342) do
+
+  create_table "enemies", force: true do |t|
+    t.string   "name",          default: "Missingno", null: false
+    t.integer  "HP",            default: 1000,        null: false
+    t.integer  "attack",        default: 100,         null: false
+    t.integer  "defence",       default: 100,         null: false
+    t.integer  "position_id",   default: 1000,        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "loot_level",    default: 1,           null: false
+    t.integer  "game_rules_id", default: 1,           null: false
+  end
 
   create_table "game_rules", force: true do |t|
     t.integer "lastTick",   default: 0,  null: false
@@ -21,8 +33,8 @@ ActiveRecord::Schema.define(version: 20130428134955) do
   end
 
   create_table "positions", force: true do |t|
-    t.integer "x"
-    t.integer "y"
+    t.integer "x", null: false
+    t.integer "y", null: false
   end
 
   create_table "queued_items", force: true do |t|
@@ -54,7 +66,7 @@ ActiveRecord::Schema.define(version: 20130428134955) do
     t.integer  "defence",                default: 200,   null: false
     t.integer  "exp",                    default: 0,     null: false
     t.boolean  "dying",                  default: false, null: false
-    t.integer  "game_rules_id",          default: 0,     null: false
+    t.integer  "game_rules_id",          default: 1,     null: false
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

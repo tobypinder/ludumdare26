@@ -71,6 +71,8 @@ var GameIO = {
     Player.defence  = p.defence
     Player.exp      = p.exp
     Player.position = p.position
+    State.selectedTile_X = p.position.x
+    State.selectedTile_Y = p.position.y
     Queue.update(p.queued_items,false);
     GameIO.load('/api/world', null, GameIO.processWorld);
     

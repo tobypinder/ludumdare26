@@ -9,6 +9,7 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.coords = Config.COORDS_WORLD
   this.selected = false;
   this.hasPlayers = false
+  this.hasEnemies = false
   this.isCharacterLocation  = false
   this.isWithinRange        = false
   this.isImpassable         = false
@@ -19,14 +20,31 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
   this.event_click=function(event)
   {
     //do stuff with this tile
+    
+
+    var selectReset=false;
+    if(this.selected)
+    {
+      State.selectedTile_X = Player.position.x
+      State.selectedTile_Y = Player.position.y
+      selectReset=true
+    } else {
+       State.selectedTile_X = this.worldX()
+       State.selectedTile_Y = this.worldY()
+    }
     for(var i=0;i<GameObjects.Tiles.list.length;i++)
     {
       GameObjects.Tiles.list[i].selected = false;
     }
-    this.selected=!this.selected;
+    if(!selectReset)
+    {
+      this.selected=true
+    }
+    //console.log("X: "+State.selectedTile_X+"  Y:"+State.selectedTile_Y);
+    //Player.position.x + tile.x,
   }
-  this.worldX=function(){return Player.x+x}
-  this.worldY=function(){return Player.x+x}
+  this.worldX=function(){return Player.position.x+x}
+  this.worldY=function(){return Player.position.y+y}
   this.render=function(ctx)
   {
 
@@ -55,24 +73,32 @@ function Tile(x,y,ui_x,ui_y,ui_w,ui_h,obj)
     //if(this.isWithinRange){
     //  ctx.fillStyle = Styles.Colors.withinRangeTile;
     //} 
-    if(this.isSlug){
-      ctx.fillStyle = Styles.Colors.slugTrail();
-    }
-    if(this.selected){
-      ctx.fillStyle = Styles.Colors.selected;
-    } 
+    
+    
 
     if(this.hasPlayers){
       ctx.fillStyle = Styles.Colors.tileOtherPlayers();
     } 
 
+    if(this.hasEnemies){
+      ctx.fillStyle = Styles.Colors.tileEnemies();
+    }     
+    if(this.isSlug){
+      ctx.fillStyle = Styles.Colors.slugTrail();
+    }
+
     if(this.isCharacterLocation){
       ctx.strokeStyle = Styles.Colors.characterTile;
       ctx.fillStyle = Styles.Colors.characterTile;
     } 
+
     if(this.isImpassable){
       ctx.strokeStyle = Styles.Colors.impassableGrid;
       ctx.fillStyle = Styles.Colors.impassableTile;
+    } 
+
+    if(this.selected){
+      ctx.fillStyle = Styles.Colors.selected;
     } 
     
     ctx.beginPath();
@@ -97,10 +123,7 @@ var Tiles={
 
       for(var j=-Config.GRID_RADIUS;j<=Config.GRID_RADIUS;j++)
       {
-
         
-
-
         var tile= new Tile(
           i,
           j,
@@ -109,10 +132,8 @@ var Tiles={
           ts, 
           ts
         );
-        
         GameObjects.Tiles.list.push(tile);
         ClickHandler.add(tile);
-
       }
     }  
   }, 
@@ -151,6 +172,8 @@ var Tiles={
       } else {
         tile.isImpassable = false
         //check more world stuff since it's valid
+
+        //PLAYERS
         if(
           World.positionPlayerCount(
              Player.position.x + tile.x,
@@ -158,14 +181,23 @@ var Tiles={
           )>0 && !tile.isCharacterLocation
         ) {
           
-          tile.hasPlayers =true
+          tile.hasPlayers = true
+        } else {
+          tile.hasPlayers = false
         }
 
+        //
+        if(
+          World.positionEnemyCount(
+            Player.position.x + tile.x,
+            Player.position.y + tile.y
+          )>0 && !tile.isCharacterLocation
+        ) {
+          tile.hasEnemies = true
+        } else {
+          tile.hasEnemies = false
+        }
       }
-
-
-
     }
-    
   }
 }

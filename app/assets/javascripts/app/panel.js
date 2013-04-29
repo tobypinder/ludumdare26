@@ -64,13 +64,11 @@ var Panel={
 
   render:function(ctx)
   {
-    
-    
-
     //directionals
     this.renderButtons(ctx);
     this.renderClock(ctx);
     this.renderStats(ctx);
+    this.renderTileInspector(ctx);
   },
   renderButtons:function(ctx)
   {
@@ -288,5 +286,83 @@ var Panel={
         Config.UISTATS_X_OFFSET+Config.UISTATS_WIDTH,
         Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*5)
       );
+  },
+  renderTileInspector:function(ctx)
+  {
+    ctx.font      = Styles.Fonts.statsValue;
+    ctx.textAlign = 'center';
+    
+    //TITLE
+    ctx.fillText(
+      "Tile Contents:",
+      Config.UISTATS_X_OFFSET+(0.5*Config.UISTATS_WIDTH),
+      Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*6.5)
+    );   
+
+    //get both allies and enemies at selected tile.
+
+    var objs = World.getTileObjects(State.selectedTile_X,State.selectedTile_Y);
+    for(var i=0;i<objs.length;i++)
+    {
+      this.renderInspection(i,objs[i],ctx)
+    }
+   
+
+    //#for(i=0;i<12;i++)
+    //#{
+    //#  ctx.beginPath();
+    //#  ctx.rect(
+    //#    Config.UISTATS_X_OFFSET+10, 
+    //#    Config.UISTATS_Y_OFFSET+(Config.UISTATS_HEIGHT*(vIndex+i)), 
+    //#    Config.UISTATS_WIDTH-20, 
+    //#    (Config.UISTATS_HEIGHT*1)
+    //#  );
+    //#  ctx.stroke();
+    //#} 
+  },
+  renderInspection:function(idx,data,ctx)
+  {
+    var obj=data.obj;
+    //console.log(obj)
+
+    if(data.type=='enemy')
+    {
+      ctx.strokeStyle = Styles.Colors.inspectEnemy;
+      ctx.fillStyle = Styles.Colors.inspectEnemy;
+    }
+    if(data.type=='player')
+    {
+      ctx.strokeStyle = Styles.Colors.inspectPlayer;
+      ctx.fillStyle = Styles.Colors.inspectPlayer;
+    }
+
+    ctx.beginPath();
+    ctx.rect(
+      Config.UISTATS_X_OFFSET-2, 
+      Config.UIINSPECT_OFFSET_Y + (Config.UIINSPECT_PAD*(idx)), 
+      Config.UISTATS_WIDTH+4, 
+      Config.UIINSPECT_HEIGHT
+    );
+    ctx.stroke();
+
+    var name = (data.type=='player') ? obj.username : obj.name
+
+    ctx.textAlign = 'left';
+     ctx.beginPath();
+    ctx.fillText(
+      name,
+      Config.UISTATS_X_OFFSET,
+      Config.UIINSPECT_OFFSET_Y + (Config.UIINSPECT_PAD*idx) + 2*Config.UIINSPECT_INTERNAL_Y
+    );   
+
+    var HPdisplay = (data.type=='player') ? (obj.HP+"/"+obj.maxHP) : obj.HP
+
+    ctx.textAlign = 'right';
+    ctx.beginPath();
+    ctx.fillText(
+      HPdisplay,
+      Config.UISTATS_X_OFFSET+(1*Config.UISTATS_WIDTH),
+      Config.UIINSPECT_OFFSET_Y+(Config.UIINSPECT_PAD*idx) + 4*Config.UIINSPECT_INTERNAL_Y
+    );   
   }
 }

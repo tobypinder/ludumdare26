@@ -5,6 +5,7 @@
 #include ActionView::Helpers #DIRTY
 class GameRules < ActiveRecord::Base
   has_many :users
+  has_many :enemies
 
   #lastTick, tickRate
   def tick
@@ -20,8 +21,8 @@ class GameRules < ActiveRecord::Base
       else
         u.move_idle
       end
-
     end
+
     self.save
   end
 
