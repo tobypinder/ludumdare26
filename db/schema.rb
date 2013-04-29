@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 20130428235342) do
     t.integer  "position_id"
     t.string   "username",               default: "",    null: false
     t.integer  "HP",                     default: 1000,  null: false
-    t.integer  "maxHP",                  default: 1000,  null: false
+    t.integer  "maxHP",                  default: 1500,  null: false
     t.integer  "maxQP",                  default: 10,    null: false
-    t.integer  "regenHP",                default: 7,     null: false
+    t.integer  "regenHP",                default: 15,    null: false
     t.integer  "attack",                 default: 500,   null: false
     t.integer  "defence",                default: 200,   null: false
     t.integer  "exp",                    default: 0,     null: false
